@@ -4,9 +4,7 @@ import { Product } from '../services/product';
 
 @Component({
   selector: 'app-products',
-  imports: [
-    NgForOf, NgIf
-  ],
+  imports: [],
   templateUrl: './products.html',
   styleUrl: './products.css',
   standalone: true
@@ -21,14 +19,28 @@ export class Products implements OnInit{
   }
 
   getAllProducts(){
-    this.products = this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe({
+      next: (resp: any) => {
+        this.products = resp;
+        console.log(resp);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
   handelDelete(product: any){
     let v = confirm('etes vous sure de vouloir supprimer?');
     if(v==true){
-      this.productService.deleteProduct(product);
-      this.getAllProducts();
+      this.productService.deleteProduct(product).subscribe({
+        next: value => {
+          this.getAllProducts();
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
     }
   }
 }

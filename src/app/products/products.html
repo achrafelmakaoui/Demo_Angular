@@ -6,22 +6,23 @@
           <th>Id</th>
           <th>Name</th>
           <th>Price</th>
+          <th>Quantity</th>
           <th>Selected</th>
           <th>Action</th>
         </tr>
       </thead>
-      @if (products){
+      @if (products) {
         <tbody>
-          @for (p of products; track p){
+          @for (p of products; track p.id){
             <tr>
-              <td>{{p.id}}</td>
-              <td>{{p.name}}</td>
-              <td>{{p.price}}</td>
+              <td>{{ p.id }}</td>
+              <td>{{ p.name }}</td>
+              <td>{{ p.price }}</td>
+              <td>{{ p.quantity }}</td>
               <td>
                 @if(p.selected){
                   <i class="bi bi-check-circle"></i>
-                } 
-                @else {
+                } @else {
                   <i class="bi bi-circle"></i>
                 }
               </td>
