@@ -11,4 +11,12 @@ export class Product {
   ]
 
   constructor(){}
+
+  getAllProducts(){
+    return this.products;
+  }
+
+  deleteProduct(products: any){
+    this.products = this.products.filter( (p:any) => p.id != products.id );
+  }
 }

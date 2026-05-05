@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common'
+import { Product } from '../services/product';
 
 @Component({
   selector: 'app-products',
@@ -12,20 +13,22 @@ import { NgForOf, NgIf } from '@angular/common'
 })
 export class Products implements OnInit{
   products : any;
-  constructor() {
+  constructor(private productService : Product ) {
 
   }
   ngOnInit(){
-    this.products = [
-      { id: 1, name : "Computer", price : 2300, selected : true },
-      { id: 2, name : "Printer", price : 1200, selected : false },
-      { id: 3, name : "Smart Phone", price : 11000, selected : true },
-    ]
+    this.getAllProducts();
   }
-  handelDelete(products: any){
+
+  getAllProducts(){
+    this.products = this.productService.getAllProducts();
+  }
+
+  handelDelete(product: any){
     let v = confirm('etes vous sure de vouloir supprimer?');
     if(v==true){
-      this.products = this.products.filter( (p:any) => p.id != products.id );
+      this.productService.deleteProduct(product);
+      this.getAllProducts();
     }
   }
 }
